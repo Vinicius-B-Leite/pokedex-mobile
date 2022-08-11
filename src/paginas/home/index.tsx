@@ -25,7 +25,7 @@ export default function Home(){
             
             let corPokemon: string
             const url2 = `https://pokeapi.co/api/v2/pokemon-species/${pokemon}/`
-            axios.get(url2).then(res=> corPokemon = res.data.color.name).catch(erro=> console.log(erro))
+            axios.get(url2).then(res=> corPokemon = res.data.color.name).catch(erro=> console.log('erro: ' + erro))
             
             const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
             axios.get(url)
@@ -35,15 +35,15 @@ export default function Home(){
                     nome: resposta.data.name,
                     tipo: tipos,
                     sprite: resposta.data.sprites.front_default,
-                    cor: corPokemon}])
+                    cor: corPokemon,
+                    id: resposta.data.id
+                }])
             })
             .catch(erro=>{
-                console.log(erro)
+                console.log('erro: ' + erro)
             })
         })
     }, [])
-
-    
     return(
         <SafeAreaView>
             <StatusBar />
@@ -51,10 +51,15 @@ export default function Home(){
             <View style={estilos.continer}>
                 <Text style={estilos.titulo}>Pokedex</Text>
                 <View style={estilos.cardConteiner}>
-                    <CardPokemon/>
-                    <CardPokemon/>
-                    <CardPokemon/>
-                    <CardPokemon/>
+                    {
+                        pokemonsIniciais.map(pokemonInicial=>{
+                            return <CardPokemon key={pokemonInicial.id} 
+                                nomePokemon={pokemonInicial.nome} 
+                                tiposPokemon={pokemonInicial.tipo}
+                                corDeFundo={pokemonInicial.cor}
+                                fotoPokemon={pokemonInicial.sprite}/>
+                        })
+                    }
                 </View>
             </View>
         </SafeAreaView>

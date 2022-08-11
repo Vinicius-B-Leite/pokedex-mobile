@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {SafeAreaView, StatusBar, Text, View } from "react-native";
+import {SafeAreaView, StatusBar, Text, View} from "react-native";
 import { useNavigation } from '@react-navigation/native'
 import Header from "../../componentes/header";
 import estilos from "./estilos";
@@ -71,7 +71,7 @@ export default function Home(){
     return(
         <SafeAreaView>
             <StatusBar />
-            <Header/>
+            <Header click={()=>navigation.navigate('Pesquisa', {focar: true})}/>
             <View style={estilos.continer}>
                 <Text style={estilos.titulo}>Pokedex</Text>
                 <View style={estilos.cardConteiner}>

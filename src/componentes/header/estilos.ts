@@ -4,12 +4,16 @@ export default StyleSheet.create({
     header:{
         padding: '5%',
         width: '100%',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row'
+        },
+    campoDeTexto:{
+        flexDirection:'row',
+        justifyContent: 'space-evenly'
     },
-    campoDeBusca:{
-        width: '50%',
+    input:{
+        width: '60%',
         textAlign: 'right'
     }
 })

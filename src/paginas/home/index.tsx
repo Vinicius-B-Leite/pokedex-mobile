@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {SafeAreaView, StatusBar, Text, View } from "react-native";
+import { useNavigation } from '@react-navigation/native'
 import Header from "../../componentes/header";
 import estilos from "./estilos";
 import axios from "axios";
 import { IPokemonInicial } from "../../interfaces/IPokemonIniciais";
 import CardPokemon from "../../componentes/cardPokemon";
+import { propStack } from "../../rotas/stack/modelos";
+
 
 
 
@@ -14,7 +17,10 @@ interface Tipo{
         url: string
     }
 }
+
+
 export default function Home(){
+    const navigation = useNavigation<propStack>()
 
     const [pokemonsIniciais, setPokemonsIniciais] = useState<IPokemonInicial[]>([])
     useEffect(()=>{
@@ -44,6 +50,7 @@ export default function Home(){
             })
         })
     }, [])
+
     return(
         <SafeAreaView>
             <StatusBar />
@@ -57,7 +64,8 @@ export default function Home(){
                                 nomePokemon={pokemonInicial.nome} 
                                 tiposPokemon={pokemonInicial.tipo}
                                 corDeFundo={pokemonInicial.cor}
-                                fotoPokemon={pokemonInicial.sprite}/>
+                                fotoPokemon={pokemonInicial.sprite}
+                                click={()=>navigation.navigate('DetalhesPokemon', {nomePokemon: pokemonInicial.nome})}/>
                         })
                     }
                 </View>

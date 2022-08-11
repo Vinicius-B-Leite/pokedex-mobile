@@ -18,6 +18,12 @@ interface Tipo{
     }
 }
 
+interface habilidade{
+    ability:{
+        name: string
+    }
+}
+
 
 export default function Home(){
     const navigation = useNavigation<propStack>()
@@ -37,12 +43,23 @@ export default function Home(){
             axios.get(url)
             .then(resposta=>{
                 let tipos: string[] = resposta.data.types.map((tipo: Tipo) => tipo.type.name)
+                let habilidades = resposta.data.abilities
+                habilidades = habilidades.map((a: habilidade) => a.ability.name)
                 setPokemonsIniciais(pokemonsAntigos => [...pokemonsAntigos, {
                     nome: resposta.data.name,
                     tipo: tipos,
                     sprite: resposta.data.sprites.front_default,
                     cor: corPokemon,
-                    id: resposta.data.id
+                    id: resposta.data.id,
+                    altura: resposta.data.height,
+                    peso: resposta.data.weight,
+                    hp: resposta.data.stats[0].base_stat,
+                    ataque: resposta.data.stats[1].base_stat,
+                    defesa: resposta.data.stats[2].base_stat,
+                    ataque_especial: resposta.data.stats[3].base_stat,
+                    defesa_especial: resposta.data.stats[4].base_stat,
+                    habilidades: habilidades,
+                    velocidade: resposta.data.stats[5].base_stat,
                 }])
             })
             .catch(erro=>{
@@ -65,7 +82,7 @@ export default function Home(){
                                 tiposPokemon={pokemonInicial.tipo}
                                 corDeFundo={pokemonInicial.cor}
                                 fotoPokemon={pokemonInicial.sprite}
-                                click={()=>navigation.navigate('DetalhesPokemon', {nomePokemon: pokemonInicial.nome})}/>
+                                click={()=>navigation.navigate('DetalhesPokemon', {...pokemonInicial})}/>
                         })
                     }
                 </View>

@@ -53,7 +53,7 @@ export default function Home(){
                                 tiposPokemon={pokemonInicial.tipo}
                                 corDeFundo={pokemonInicial.cor}
                                 fotoPokemon={pokemonInicial.sprite}
-                                click={()=>navigation.navigate('DetalhesPokemon', {...pokemonInicial})}/>
+                                click={()=>navigation.navigate('DetalhesPokemon', {nome: pokemonInicial.nome})}/>
                         })
                     }
                 </View>

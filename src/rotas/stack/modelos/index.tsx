@@ -1,8 +1,8 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {IPokemonInicial} from '../../../interfaces/IPokemonIniciais'
+import { IPokemonComplete } from "../../../interfaces/IPokemonCompleto";
 export type propsNavigationStack ={
     Home: undefined
-    DetalhesPokemon: IPokemonInicial,
+    DetalhesPokemon: IPokemonComplete,
     Pesquisa: {
         focar?: boolean
     }

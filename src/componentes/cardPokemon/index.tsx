@@ -17,6 +17,7 @@ export default function CardPokemon({nomePokemon, tiposPokemon, corDeFundo, foto
         if (corDeFundo == 'blue') return '#37a5c6'
         if (corDeFundo == "green") return '#14a06f'
         if (corDeFundo == 'yellow') return '#f7a61b'
+        return corDeFundo
     }
     return(
         <TouchableOpacity style={[estilos.card, {backgroundColor: qualCorDeFundo()}]} onPress={() => click()}>
@@ -26,7 +27,7 @@ export default function CardPokemon({nomePokemon, tiposPokemon, corDeFundo, foto
                     {
                         tiposPokemon.map(tipoPokemon=>
                             <Text key={tipoPokemon} 
-                            style={[estilos.tipos, {backgroundColor: corDeFundo == 'red' ? "orangered" : 'light'+corDeFundo}]}
+                            style={[estilos.tipos, {backgroundColor: corDeFundo == 'red' ? "orangered" : 'light'+corDeFundo }]}
                                 >{tipoPokemon}
                             </Text>
                         )

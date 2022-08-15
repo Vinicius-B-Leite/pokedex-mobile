@@ -3,13 +3,11 @@ import {SafeAreaView, StatusBar, Text, View} from "react-native";
 import { useNavigation } from '@react-navigation/native'
 import Header from "../../componentes/header";
 import estilos from "./estilos";
-import axios from "axios";
 import { IPokemonInicial } from "../../interfaces/IPokemonIniciais";
 import CardPokemon from "../../componentes/cardPokemon";
 import { propStack } from "../../rotas/stack/modelos";
-
-
-
+import { buscarPokemon } from "../../funcao/buscarPokemon";
+import axios from "axios";
 
 interface Tipo{
     type: {
@@ -18,66 +16,39 @@ interface Tipo{
     }
 }
 
-interface habilidade{
-    ability:{
-        name: string
-    }
-}
-
-
 export default function Home(){
     const navigation = useNavigation<propStack>()
 
     const [pokemonsIniciais, setPokemonsIniciais] = useState<IPokemonInicial[]>([])
+    let pokemons = ['bulbasaur', 'charmander', 'squirtle', 'pikachu']
     useEffect(()=>{
 
-        let pokemons = ['bulbasaur', 'charmander', 'squirtle', 'pikachu']
-        pokemons.map(pokemon=>{
+        pokemons.forEach(pokemon=> {
+                let cor: string 
+                axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}/`).then(res => cor = res.data.color.name )
 
-            
-            let corPokemon: string
-            const url2 = `https://pokeapi.co/api/v2/pokemon-species/${pokemon}/`
-            axios.get(url2).then(res=> corPokemon = res.data.color.name).catch(erro=> console.log('erro: ' + erro))
-            
-            const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
-            axios.get(url)
-            .then(resposta=>{
-                let tipos: string[] = resposta.data.types.map((tipo: Tipo) => tipo.type.name)
-                let habilidades = resposta.data.abilities
-                habilidades = habilidades.map((a: habilidade) => a.ability.name)
-                setPokemonsIniciais(pokemonsAntigos => [...pokemonsAntigos, {
-                    nome: resposta.data.name,
-                    tipo: tipos,
-                    sprite: resposta.data.sprites.front_default,
-                    cor: corPokemon,
-                    id: resposta.data.id,
-                    altura: resposta.data.height,
-                    peso: resposta.data.weight,
-                    hp: resposta.data.stats[0].base_stat,
-                    ataque: resposta.data.stats[1].base_stat,
-                    defesa: resposta.data.stats[2].base_stat,
-                    ataque_especial: resposta.data.stats[3].base_stat,
-                    defesa_especial: resposta.data.stats[4].base_stat,
-                    habilidades: habilidades,
-                    velocidade: resposta.data.stats[5].base_stat,
-                }])
-            })
-            .catch(erro=>{
-                console.log('erro: ' + erro)
-            })
+                axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`).then(res =>{
+                    let tipos: string[] = res.data.types.map((tipo: Tipo) => tipo.type.name)
+                    setPokemonsIniciais(p => [...p, {
+                        cor: cor,
+                        nome: res.data.name,
+                        tipo: tipos,
+                        sprite: res.data.sprites.front_default
+                    }])
+                })
         })
     }, [])
 
     return(
         <SafeAreaView>
             <StatusBar />
-            <Header click={()=>navigation.navigate('Pesquisa', {focar: true})}/>
+            <Header click={()=>navigation.navigate('Pesquisa', {focar: true})} visivel={false}/>
             <View style={estilos.continer}>
                 <Text style={estilos.titulo}>Pokedex</Text>
                 <View style={estilos.cardConteiner}>
                     {
                         pokemonsIniciais.map(pokemonInicial=>{
-                            return <CardPokemon key={pokemonInicial.id} 
+                            return <CardPokemon key={pokemonInicial.nome} 
                                 nomePokemon={pokemonInicial.nome} 
                                 tiposPokemon={pokemonInicial.tipo}
                                 corDeFundo={pokemonInicial.cor}

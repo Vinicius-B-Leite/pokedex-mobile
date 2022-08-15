@@ -14,6 +14,7 @@ export default StyleSheet.create({
     },
     input:{
         width: '60%',
-        textAlign: 'right'
+        textAlign: 'right',
+        borderBottomWidth: 2,
     }
 })

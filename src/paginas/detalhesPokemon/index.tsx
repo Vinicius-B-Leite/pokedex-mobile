@@ -10,7 +10,7 @@ type PropsDetalhesPokemon = NativeStackScreenProps<propsNavigationStack, "Detalh
 
 export default function DetalhesPokemon(props: PropsDetalhesPokemon) {
     const pokemon = props.route.params
-
+    console.log(pokemon)
     return (
         <SafeAreaView >
             <View style={[estilos.conteiner, {backgroundColor: pokemon.cor}]}>

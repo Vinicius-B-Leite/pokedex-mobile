@@ -8,6 +8,7 @@ import { IPokemonComplete } from "../../interfaces/IPokemonCompleto";
 import { buscarPokemon } from "../../funcao/buscarPokemon";
 import { qualCorDeFundo } from "../../funcao/buscarPokemon/corPokemon/qualCorDeFundo";
 import { qualCorDeFundoTexto } from "../../funcao/buscarPokemon/corPokemon/qualCorDeFundoTexto";
+import Status from "./statusPokemon/indes";
 
 type PropsDetalhesPokemon = NativeStackScreenProps<propsNavigationStack, "DetalhesPokemon">
 
@@ -35,36 +36,7 @@ export default function DetalhesPokemon(props: PropsDetalhesPokemon) {
                         }
                     </View>
                 </View>
-                <View style={estilos.conteinerStatus}>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>HP</Text>
-                        <Text>{pokemon?.hp}</Text>
-                    </View>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>Ataque</Text>
-                        <Text>{pokemon?.ataque}</Text>
-                    </View>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>Defesa</Text>
-                        <Text>{pokemon?.defesa}</Text>
-                    </View>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>Ataque especial</Text>
-                        <Text>{pokemon?.ataque_especial}</Text>
-                    </View>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>Defesa especial</Text>
-                        <Text>{pokemon?.defesa_especial}</Text>
-                    </View>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>Velocidade</Text>
-                        <Text>{pokemon?.velocidade}</Text>
-                    </View>
-                    <View style={estilos.status}>
-                        <Text style={estilos.statusNome}>Habilidades</Text>
-                        <View>{pokemon?.habilidades?.map(habilidade=> <Text key={habilidade}>{habilidade}</Text>)}</View>
-                    </View>
-                </View>
+            <Status pokemon={pokemon}/>
             </View>
         </SafeAreaView>
     )

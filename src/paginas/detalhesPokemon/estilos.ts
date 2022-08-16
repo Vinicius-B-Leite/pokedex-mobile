@@ -46,16 +46,4 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 15
     },
-    conteinerStatus:{
-        paddingTop: '5%',
-        width: '100%',
-    },
-    status:{
-        flexDirection: 'row',
-    },
-    statusNome:{
-        width: '60%',
-        color: 'grey',
-        padding: '1%'
-    }
 })
